@@ -1,5 +1,7 @@
 package com.jyl.algo;
 
+import java.util.ArrayList;
+
 /**
  * 单链表
  */
@@ -46,6 +48,31 @@ public class SingleLinkedList<T> {
         }
     }
 
+
+    /**
+     * 反转链表:
+     * 1.从第二个节点往后开始，将后续节点next指向前序节点
+     * 2.最后将第一个节点插入末尾，即可完成反转链表
+     */
+    public void reverse() {
+        if (head.next == null) {
+            return;
+        }
+        //当前节点,从哨兵节点后面开始算
+        Node<T> curr = head.next;
+        Node<T> prev = null;//前序节点
+        Node<T> next = null;//后续节点
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev; //指向前序节点
+            prev = curr;    //前序节点移动到当前节点
+            curr = next; //当前节点后移
+
+        }
+        //最后将第一个节点插入末尾
+        head.next = prev;
+    }
+
     @Override
     public String toString() {
         Node<T> p = head.next;
@@ -59,7 +86,7 @@ public class SingleLinkedList<T> {
             sb.append(p.data).append(",");
             p = p.next;
         }
-        sb.deleteCharAt(sb.length()-1);
+        sb.deleteCharAt(sb.length() - 1);
         sb.append("]");
         return sb.toString();
     }
